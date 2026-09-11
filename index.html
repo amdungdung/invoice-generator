@@ -400,7 +400,7 @@ function showPreview() {
               </tr>
               <tr>
                   <td colspan="2" style="border:1px solid #e5e7eb;"></td>
-                  <td style="padding:8px 10px; border:1px solid #e5e7eb; text-align:right;"><b>Less: Advance</b></td>
+                  <td style="padding:8px 10px; border:1px solid #e5e7eb; text-align:right;"><b>Less Advance</b></td>
                   <td style="padding:8px 10px; border:1px solid #e5e7eb; text-align:right;"><b>${d.adv.toLocaleString('en-IN', {maximumFractionDigits:0})}</b></td>
               </tr>
               <tr>
@@ -574,7 +574,7 @@ function genPDF() {
   doc.setDrawColor(226, 232, 240);
   const totals = [
       {label: 'Total', val: d.sub},
-      {label: 'Less: Advance', val: d.adv},
+      {label: 'Less Advance', val: d.adv},
       {label: 'Net Balance', val: d.net}
   ];
 

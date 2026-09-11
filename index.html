@@ -69,7 +69,7 @@
     <div class="card-title">🏢 Company Details</div>
     <div class="grid">
       <div class="full"><label>Company Name</label><input id="co_name" value="SUMAN ENTERPRISES"></div>
-      <div class="full"><label>Address</label><input id="co_addr" value="Shirkha Toli, Sada bahar Chowk, Khijri Namkum Ranchi-834010."></div>
+      <div class="full"><label>Address</label><input id="co_addr" value="Sirkha Toli, Sadabahar Chowk, Khijri, Namkum, Ranchi, Jharkhand (PIN 834010)"></div>
       <div><label>Email</label><input id="co_email1" value="khalkhopraveenalfred@gmail.com"></div>
       <div><label>MSME Number</label><input id="co_msme" value="JH2040012177"></div>
       <div class="full"><label>Phone Numbers</label><input id="co_ph1" value="8208210082 / 9822947227 / 9284339895"></div>
@@ -330,7 +330,7 @@ function numToWords(n) {
     return words(Math.floor(num/10000000)) + 'Crore ' + words(num%10000000);
   }
   const int = Math.floor(Math.abs(n));
-  return (words(int) || 'Zero ').trim() + ' only.';
+  return (words(int) || 'Zero ').trim() + ' only';
 }
 
 function fmtDate(d) {
@@ -433,7 +433,7 @@ function showPreview() {
           </div>
           <div style="text-align:right; display:flex; flex-direction:column; justify-content:space-between;">
               <div>
-                  <b>Certified that the particulars given above<br>are true and correct.</b>
+                  <b>Certified that the particulars given above<br>are true and correct</b>
               </div>
               <div style="margin-top:20px;">
                   ${d.docType === 'INVOICE' ? `<div style="font-family: 'Brush Script MT', 'Segoe Script', cursive; font-size: 22px; color: #1e3a8a; margin-bottom: 2px;">${d.coSign}</div>` : ''}

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Invoice Generator – Suman Enterprises</title>
+<title>Invoice Generator – Suman Enterprise</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
   *{margin:0;padding:0;box-sizing:border-box;}
@@ -24,7 +24,7 @@
   .items-table{width:100%;border-collapse:collapse;font-size:.83rem;}
   .items-table th{background:#eff6ff;color:#1e40af;padding:8px 10px;text-align:left;font-size:.75rem;text-transform:uppercase;}
   .items-table td{padding:6px 6px;border-bottom:1px solid #f1f5f9;vertical-align:middle;}
-  .items-table input{padding:6px 8px;font-size:.82rem;}
+  .items-table input, .items-table textarea{padding:6px 8px;font-size:.82rem;}
   .del-btn{background:#fee2e2;border:none;color:#dc2626;border-radius:6px;padding:5px 10px;cursor:pointer;font-size:.8rem;}
   .add-btn{background:#eff6ff;border:1.5px dashed #3b82f6;color:#1e40af;border-radius:8px;padding:8px;width:100%;cursor:pointer;font-size:.82rem;font-weight:600;margin-top:8px;}
   .add-btn:hover{background:#dbeafe;}
@@ -42,8 +42,8 @@
   .btn{padding:11px 26px;border-radius:10px;font-size:.88rem;font-weight:700;cursor:pointer;border:none;display:flex;align-items:center;gap:7px;transition:all .2s;}
   .btn-primary{background:#1e40af;color:#fff;box-shadow:0 2px 8px #1e40af44;}
   .btn-primary:hover{background:#1d3d9e;transform:translateY(-1px);}
-  .btn-success{background:#16a34a;color:#fff;box-shadow:0 2px 8px #16a34a44;}
-  .btn-success:hover{background:#15803d;transform:translateY(-1px);}
+  .btn-success{background:#2563eb;color:#fff;box-shadow:0 2px 8px #2563eb44;}
+  .btn-success:hover{background:#1d4ed8;transform:translateY(-1px);}
   .btn-secondary{background:#f1f5f9;color:#475569;border:1.5px solid #e2e8f0;}
   .btn-secondary:hover{background:#e2e8f0;}
 
@@ -53,22 +53,8 @@
   /* Preview */
   .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center;padding:16px;}
   .modal.show{display:flex;}
-  .modal-box{background:#fff;border-radius:16px;max-width:680px;width:100%;max-height:92vh;overflow-y:auto;padding:28px;position:relative;}
+  .modal-box{background:#fff;border-radius:16px;max-width:820px;width:100%;max-height:92vh;overflow-y:auto;padding:28px;position:relative;}
   .modal-close{position:absolute;top:14px;right:14px;background:#f1f5f9;border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:.9rem;}
-
-  /* Invoice preview styles */
-  #prev .co-header{text-align:center;margin-bottom:16px;}
-  #prev .co-name{font-size:1.3rem;font-weight:800;color:#1e40af;}
-  #prev .co-addr{font-size:.75rem;color:#64748b;line-height:1.6;}
-  #prev .inv-title{text-align:center;font-size:1rem;font-weight:700;background:#1e40af;color:#fff;padding:6px;border-radius:6px;margin:10px 0;}
-  #prev table{width:100%;border-collapse:collapse;font-size:.82rem;margin:10px 0;}
-  #prev th{background:#eff6ff;color:#1e40af;padding:7px 10px;text-align:left;}
-  #prev td{padding:7px 10px;border-bottom:1px solid #f1f5f9;}
-  #prev .total-sec{text-align:right;font-size:.85rem;margin-top:8px;}
-  #prev .net-line{font-size:1rem;font-weight:800;color:#1e40af;}
-  #prev .footer-note{font-size:.73rem;color:#64748b;margin-top:14px;text-align:center;line-height:1.6;}
-  #prev .cust-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;font-size:.8rem;margin-bottom:10px;}
-  #prev .cust-grid b{color:#475569;}
 
   @media(max-width:560px){.grid{grid-template-columns:1fr;}.full{grid-column:1;}}
 </style>
@@ -76,19 +62,18 @@
 <body>
 <div class="wrap">
   <h1>🧾 Invoice Generator</h1>
-  <p class="sub">Suman Enterprises — Fill details and generate a professional invoice PDF</p>
+  <p class="sub">Suman Enterprise — Clean design layout</p>
 
   <!-- Company Info -->
   <div class="card">
     <div class="card-title">🏢 Company Details</div>
     <div class="grid">
-      <div class="full"><label>Company Name</label><input id="co_name" value="SUMAN ENTERPRISES"></div>
-      <div class="full"><label>Address</label><input id="co_addr" value="Shirkha Toli, Sada bahar Chowk, Khijri Namkum Ranchi-834010"></div>
-      <div><label>Email 1</label><input id="co_email1" value="laxmankhalkho1234@gmail.com"></div>
-      <div><label>Email 2</label><input id="co_email2" value="praveenalfredkhalkho@gmail.com"></div>
-      <div><label>Phone 1</label><input id="co_ph1" value="9822947227"></div>
-      <div><label>Phone 2</label><input id="co_ph2" value="9284339895"></div>
+      <div class="full"><label>Company Name</label><input id="co_name" value="SUMAN ENTERPRISE"></div>
+      <div class="full"><label>Address</label><input id="co_addr" value="Shirkha Toli, Sada bahar Chowk, Khijri Namkum Ranchi-834010."></div>
+      <div><label>Email</label><input id="co_email1" value="khalkhopraveenalfred@gmail.com"></div>
       <div><label>MSME Number</label><input id="co_msme" value="JH2040012177"></div>
+      <div class="full"><label>Phone Numbers</label><input id="co_ph1" value="8208210082 / 9822947227 / 9284339895"></div>
+      
       <div><label>Bank A/C Number</label><input id="co_bank" value="38542735812"></div>
       <div><label>IFSC Code</label><input id="co_ifsc" value="SBIN0009011"></div>
       <div><label>PhonePay Number</label><input id="co_pp" value="8208210082"></div>
@@ -106,14 +91,7 @@
           <option value="ESTIMATE">Estimate</option>
         </select>
       </div>
-      <div><label>Invoice Number</label><input id="inv_no" placeholder="e.g. SE/2024/001"></div>
       <div><label>Invoice Date</label><input type="date" id="inv_date"></div>
-      <div style="display:flex;align-items:center;gap:12px;padding-top:18px;">
-        <label style="text-transform:none;font-size:.85rem;font-weight:600;color:#475569;margin:0;">Include Payment Details in PDF</label>
-        <div id="toggle_wrap" onclick="togglePayment()" style="cursor:pointer;width:44px;height:24px;border-radius:12px;background:#cbd5e1;position:relative;transition:background .2s;flex-shrink:0;">
-          <div id="toggle_knob" style="position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:left .2s;"></div>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -121,9 +99,9 @@
   <div class="card">
     <div class="card-title">👤 Customer / Bill To</div>
     <div class="grid">
-      <div><label>Customer Name</label><input id="cust_name" value="Raju Lakra"></div>
-      <div><label>Contact Number</label><input id="cust_ph" value="9939381734"></div>
-      <div class="full"><label>Address</label><input id="cust_addr" value="Ghagra"></div>
+      <div><label>Customer Name</label><input id="cust_name" value="Nitesh Sharma"></div>
+      <div><label>Contact Number</label><input id="cust_ph" value="9123181792"></div>
+      <div class="full"><label>Address</label><input id="cust_addr" value="Ranchi"></div>
     </div>
   </div>
 
@@ -134,9 +112,9 @@
       <thead>
         <tr>
           <th style="width:36px">#</th>
-          <th>Description</th>
-          <th style="width:90px">Rate (₹)</th>
-          <th style="width:90px">Qty</th>
+          <th>Description (Use 'Enter' for new lines)</th>
+          <th style="width:100px">Rate (₹)</th>
+          <th style="width:80px">Qty/Multiplier</th>
           <th style="width:110px">Total (₹)</th>
           <th style="width:40px"></th>
         </tr>
@@ -148,26 +126,22 @@
     <div class="totals" id="totals_section">
       <div class="total-row"><span>Subtotal:</span><span id="t_sub">₹ 0.00</span></div>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;gap:10px;flex-wrap:wrap;">
-        <div style="display:flex;align-items:center;gap:8px;">
-          <label style="text-transform:none;font-size:.82rem;margin:0;">Advance Date:</label>
-          <input type="date" id="advance_date" style="width:150px">
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;">
+        <div style="display:flex;align-items:center;gap:8px; margin-left:auto;">
           <label style="text-transform:none;font-size:.82rem;margin:0;">Less Advance (₹):</label>
-          <input type="number" id="advance" value="100000" style="width:130px" oninput="calcTotals()">
+          <input type="number" id="advance" value="65000" style="width:130px" oninput="calcTotals()">
         </div>
       </div>
-      <div class="total-row advance"><span>Advance Paid:</span><span id="t_adv">- ₹ 0.00</span></div>
-      <div class="total-row net"><span>Net Payable:</span><span id="t_net">₹ 0.00</span></div>
+      <div class="total-row advance"><span>Less: Advance:</span><span id="t_adv">- ₹ 0.00</span></div>
+      <div class="total-row net"><span>Net Balance:</span><span id="t_net">₹ 0.00</span></div>
     </div>
   </div>
 
   <!-- Requirements -->
   <div class="card">
     <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;">
-      <span>📝 Requirements / Terms</span>
+      <span>📝 Requirements & Notes</span>
       <div style="display:flex;align-items:center;gap:8px;">
-        <span style="font-size:.78rem;font-weight:500;color:#64748b;">Include in PDF</span>
+        <span style="font-size:.75rem;font-weight:600;color:#64748b;text-transform:none;">Include in PDF</span>
         <div id="req_toggle_wrap" onclick="toggleReq()" style="cursor:pointer;width:44px;height:24px;border-radius:12px;background:#cbd5e1;position:relative;transition:background .2s;flex-shrink:0;">
           <div id="req_toggle_knob" style="position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:left .2s;"></div>
         </div>
@@ -190,7 +164,7 @@
   <div class="modal-box">
     <button class="modal-close" onclick="document.getElementById('modal').classList.remove('show')">✕</button>
     <div id="prev"></div>
-    <div class="actions" style="margin-top:18px;">
+    <div class="actions" style="margin-top:24px;">
       <button class="btn btn-secondary" onclick="document.getElementById('modal').classList.remove('show')">Close</button>
       <button class="btn btn-success" onclick="genPDF()">📄 Download PDF</button>
     </div>
@@ -201,43 +175,41 @@
 
 <script>
 let rows = [];
-let showPayment = false;
-let showReq = false;
 let reqLines = [];
-
-function togglePayment() {
-  showPayment = !showPayment;
-  setToggleUI('toggle_wrap', 'toggle_knob', showPayment);
-}
+let showReq = false;
 
 function toggleReq() {
   showReq = !showReq;
-  setToggleUI('req_toggle_wrap', 'req_toggle_knob', showReq);
+  updateReqUI();
 }
 
-function setToggleUI(wrapId, knobId, state) {
-  const wrap = document.getElementById(wrapId);
-  const knob = document.getElementById(knobId);
-  wrap.style.background = state ? '#16a34a' : '#cbd5e1';
-  knob.style.left = state ? '23px' : '3px';
-}
-
-function setToggle(id, state) {
-  const isPayment = id === 'payment';
-  const wrapId = isPayment ? 'toggle_wrap' : 'req_toggle_wrap';
-  const knobId = isPayment ? 'toggle_knob' : 'req_toggle_knob';
-  setToggleUI(wrapId, knobId, state);
-  if (isPayment) showPayment = state; else showReq = state;
+function updateReqUI() {
+  const wrap = document.getElementById('req_toggle_wrap');
+  const knob = document.getElementById('req_toggle_knob');
+  wrap.style.background = showReq ? '#16a34a' : '#cbd5e1';
+  knob.style.left = showReq ? '23px' : '3px';
 }
 
 function onDocTypeChange(val) {
-  if (val === 'INVOICE') {
-    setToggle('payment', true);
-    setToggle('req', false);
-  } else {
-    setToggle('payment', false);
-    setToggle('req', true);
-  }
+  showReq = (val === 'ESTIMATE');
+  updateReqUI();
+}
+
+function syncRows() {
+  const tbody = document.getElementById('items_body');
+  if (!tbody) return;
+  const trs = tbody.querySelectorAll('tr');
+  trs.forEach((tr, i) => {
+    if (rows[i]) {
+      const ta = tr.querySelector('textarea');
+      const inputs = tr.querySelectorAll('input');
+      if (ta) rows[i].desc = ta.value;
+      if (inputs.length >= 2) {
+        rows[i].rate = inputs[0].value;
+        rows[i].qty = inputs[1].value;
+      }
+    }
+  });
 }
 
 function addReqLine(val='') {
@@ -258,20 +230,22 @@ function renderReqLines() {
     const div = document.createElement('div');
     div.style = 'display:flex;align-items:center;gap:8px;margin-bottom:8px;';
     div.innerHTML = `
-      <span style="color:#64748b;font-size:.85rem;flex-shrink:0;">✦</span>
-      <input value="${r.val}" oninput="reqLines[${i}].val=this.value" placeholder="e.g. Extra charges applicable for changes in area & height." style="flex:1;">
+      <span style="color:#64748b;font-size:.85rem;flex-shrink:0;">*</span>
+      <input value="${r.val}" oninput="reqLines[${i}].val=this.value" placeholder="e.g. Extra charges applicable..." style="flex:1;">
       <button class="del-btn" onclick="removeReqLine(${r.id})">✕</button>`;
     cont.appendChild(div);
   });
 }
 
 function addRow(desc='', rate='', qty='') {
+  syncRows();
   const id = Date.now();
   rows.push({id, desc, rate, qty});
   renderRows();
 }
 
 function removeRow(id) {
+  syncRows(); 
   rows = rows.filter(r => r.id !== id);
   renderRows();
 }
@@ -281,64 +255,64 @@ function renderRows() {
   tbody.innerHTML = '';
   rows.forEach((r, i) => {
     const tr = document.createElement('tr');
+    const safeDesc = (r.desc || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     tr.innerHTML = `
       <td style="text-align:center;color:#64748b">${i+1}</td>
-      <td><input value="${r.desc}" oninput="rows[${i}].desc=this.value;calcTotals()" placeholder="Description of work"></td>
-      <td><input type="number" value="${r.rate}" oninput="rows[${i}].rate=this.value;calcTotals()" placeholder="0"></td>
-      <td><input type="number" value="${r.qty}" oninput="rows[${i}].qty=this.value;calcTotals()" placeholder="1"></td>
+      <td><textarea oninput="calcTotals()" placeholder="Main Title&#10;Sub detail 1&#10;Sub detail 2">${safeDesc}</textarea></td>
+      <td><input type="number" value="${r.rate}" oninput="calcTotals()" placeholder="0"></td>
+      <td><input type="number" value="${r.qty}" oninput="calcTotals()" placeholder="1"></td>
       <td style="text-align:right;font-weight:600;padding-right:10px" id="rt_${r.id}">₹ 0.00</td>
       <td><button class="del-btn" onclick="removeRow(${r.id})">✕</button></td>`;
     tbody.appendChild(tr);
   });
-  calcTotals();
+  calcTotals(false);
 }
 
-function calcTotals() {
+function calcTotals(doSync = true) {
+  if(doSync) syncRows();
   let sub = 0;
   rows.forEach((r, i) => {
-    const t = (parseFloat(r.rate)||0) * (parseFloat(r.qty)||0);
+    const q = parseFloat(r.qty) || 1; 
+    const t = (parseFloat(r.rate)||0) * q;
     sub += t;
     const el = document.getElementById(`rt_${r.id}`);
-    if (el) el.textContent = '₹ ' + t.toLocaleString('en-IN', {minimumFractionDigits:2});
+    if (el) el.textContent = '₹ ' + t.toLocaleString('en-IN', {maximumFractionDigits:0});
   });
   const adv = parseFloat(document.getElementById('advance').value)||0;
   const net = sub - adv;
-  document.getElementById('t_sub').textContent = '₹ ' + sub.toLocaleString('en-IN', {minimumFractionDigits:2});
-  document.getElementById('t_adv').textContent = '- ₹ ' + adv.toLocaleString('en-IN', {minimumFractionDigits:2});
-  document.getElementById('t_net').textContent = '₹ ' + net.toLocaleString('en-IN', {minimumFractionDigits:2});
+  document.getElementById('t_sub').textContent = '₹ ' + sub.toLocaleString('en-IN', {maximumFractionDigits:0});
+  document.getElementById('t_adv').textContent = '- ₹ ' + adv.toLocaleString('en-IN', {maximumFractionDigits:0});
+  document.getElementById('t_net').textContent = '₹ ' + net.toLocaleString('en-IN', {maximumFractionDigits:0});
 }
 
 function getData() {
+  syncRows(); 
   let sub = 0;
   const items = rows.map((r,i) => {
-    const t = (parseFloat(r.rate)||0)*(parseFloat(r.qty)||0);
+    const q = parseFloat(r.qty) || 1;
+    const t = (parseFloat(r.rate)||0) * q;
     sub += t;
-    return {no: i+1, desc: r.desc, rate: parseFloat(r.rate)||0, qty: parseFloat(r.qty)||0, total: t};
+    return {no: i+1, desc: r.desc || '', rate: parseFloat(r.rate)||0, total: t};
   });
   const adv = parseFloat(document.getElementById('advance').value)||0;
   return {
     coName: document.getElementById('co_name').value,
     coAddr: document.getElementById('co_addr').value,
     coEmail1: document.getElementById('co_email1').value,
-    coEmail2: document.getElementById('co_email2').value,
     coPh1: document.getElementById('co_ph1').value,
-    coPh2: document.getElementById('co_ph2').value,
     coMsme: document.getElementById('co_msme').value,
     coBank: document.getElementById('co_bank').value,
     coIfsc: document.getElementById('co_ifsc').value,
     coPp: document.getElementById('co_pp').value,
     coSign: document.getElementById('co_sign').value,
-    invNo: document.getElementById('inv_no').value,
     invDate: document.getElementById('inv_date').value,
     docType: document.getElementById('doc_type').value,
-    showPayment,
-    reqLines: reqLines.filter(r => r.val.trim()),
     showReq,
+    reqLines: reqLines.filter(r => r.val.trim()),
     custName: document.getElementById('cust_name').value,
     custPh: document.getElementById('cust_ph').value,
     custAddr: document.getElementById('cust_addr').value,
     items, sub, adv,
-    advDate: document.getElementById('advance_date').value,
     net: sub - adv
   };
 }
@@ -349,14 +323,14 @@ function numToWords(n) {
   function words(num) {
     if (num === 0) return '';
     if (num < 20) return a[num] + ' ';
-    if (num < 100) return b[Math.floor(num/10)] + ' ' + a[num%10] + ' ';
+    if (num < 100) return b[Math.floor(num/10)] + (num%10 !== 0 ? '-' + a[num%10] : '') + ' ';
     if (num < 1000) return a[Math.floor(num/100)] + ' Hundred ' + words(num%100);
     if (num < 100000) return words(Math.floor(num/1000)) + 'Thousand ' + words(num%1000);
     if (num < 10000000) return words(Math.floor(num/100000)) + 'Lakh ' + words(num%100000);
     return words(Math.floor(num/10000000)) + 'Crore ' + words(num%10000000);
   }
   const int = Math.floor(Math.abs(n));
-  return (words(int) || 'Zero ').trim() + ' Only';
+  return (words(int) || 'Zero ').trim() + ' only.';
 }
 
 function fmtDate(d) {
@@ -365,40 +339,108 @@ function fmtDate(d) {
   return `${day}.${m}.${y}`;
 }
 
-function fmtINR(n) { return 'Rs. ' + n.toLocaleString('en-IN', {minimumFractionDigits:2}); }
-
 function showPreview() {
   const d = getData();
+  
   document.getElementById('prev').innerHTML = `
-    <div class="co-header">
-      <div class="co-name">${d.coName}</div>
-      <div class="co-addr">${d.coAddr}<br>
-      Email: ${d.coEmail1} / ${d.coEmail2}<br>
-      Phone: ${d.coPh1} / ${d.coPh2}<br>
-      MSME: ${d.coMsme} &nbsp;|&nbsp; PhonePay: ${d.coPp}</div>
-    </div>
-    <div class="inv-title">INVOICE</div>
-    <div class="cust-grid">
-      <div><b>Name:</b> ${d.custName}</div>
-      <div><b>Date:</b> ${fmtDate(d.invDate)}</div>
-      <div><b>Address:</b> ${d.custAddr}</div>
-      <div><b>Contact:</b> ${d.custPh}</div>
-      ${d.invNo ? `<div><b>Invoice No:</b> ${d.invNo}</div>` : ''}
-    </div>
-    <table>
-      <thead><tr><th>#</th><th>Description</th><th>Rate</th><th>Qty</th><th style="text-align:right">Total</th></tr></thead>
-      <tbody>${d.items.map(it=>`<tr><td>${it.no}</td><td>${it.desc}</td><td>₹${it.rate.toLocaleString('en-IN')}</td><td>${it.qty}</td><td style="text-align:right">₹ ${it.total.toLocaleString('en-IN')}</td></tr>`).join('')}</tbody>
-    </table>
-    <div class="total-sec">
-      <div>Total: <b>${fmtINR(d.sub)}</b></div>
-      <div>Less Advance: <b style="color:#dc2626">- ${fmtINR(d.adv)}</b></div>
-      <div class="net-line">Net Payable: ${fmtINR(d.net)}</div>
-    </div>
-    <div class="footer-note">
-      <b>Amount in Rupees:</b> ${numToWords(d.net)}<br>
-      Certified that the particulars given above are true and correct<br>
-      Bank A/c: ${d.coBank} &nbsp;|&nbsp; IFSC: ${d.coIfsc}<br><br>
-      <b>For ${d.coName}</b><br>${d.coSign}
+    <div style="border:1px solid #d1d5db; padding:30px; font-family:Arial, sans-serif; background:#fff; max-width:760px; margin:0 auto;">
+      <div style="display:flex; justify-content:space-between; margin-bottom:12px;">
+          <div>
+              <h2 style="color:#1e3a8a; margin:0; font-size:24px; font-weight:800; letter-spacing:0.5px;">${d.coName.toUpperCase()}</h2>
+              <div style="font-size:11px; color:#64748b; margin-top:8px; line-height:1.6;">
+                  ${d.coAddr}<br>
+                  E-mail: ${d.coEmail1} | MSME No: ${d.coMsme}<br>
+                  Phone No: ${d.coPh1}
+              </div>
+          </div>
+          <div style="text-align:right;">
+              <h2 style="color:#2563eb; margin:0; font-size:22px; font-weight:800;">${d.docType}</h2>
+              <div style="font-size:12px; margin-top:30px; color:#333;"><b>Date:</b> ${fmtDate(d.invDate)}</div>
+          </div>
+      </div>
+      
+      <table style="width:100%; border-collapse:collapse; margin-bottom:20px; font-size:12.5px; border:1px solid #e5e7eb;">
+          <tr>
+              <td style="border:1px solid #e5e7eb; padding:8px 10px; width:15%; background:#f8fafc; color:#333;"><b>Name:</b></td>
+              <td style="border:1px solid #e5e7eb; padding:8px 10px; width:45%; color:#333;">${d.custName}</td>
+              <td style="border:1px solid #e5e7eb; padding:8px 10px; width:15%; background:#f8fafc; color:#333;"><b>Contact:</b></td>
+              <td style="border:1px solid #e5e7eb; padding:8px 10px; width:25%; color:#333;">${d.custPh}</td>
+          </tr>
+          <tr>
+              <td style="border:1px solid #e5e7eb; padding:8px 10px; background:#f8fafc; color:#333;"><b>Address:</b></td>
+              <td colspan="3" style="border:1px solid #e5e7eb; padding:8px 10px; color:#333;">${d.custAddr}</td>
+          </tr>
+      </table>
+
+      <table style="width:100%; border-collapse:collapse; font-size:12.5px; border:1px solid #e5e7eb;">
+          <thead>
+              <tr style="background:#2563eb; color:#fff;">
+                  <th style="padding:8px 10px; border:1px solid #d1d5db; width:8%; text-align:center;">Sl.<br>No.</th>
+                  <th style="padding:8px 10px; border:1px solid #d1d5db; text-align:left;">Description</th>
+                  <th style="padding:8px 10px; border:1px solid #d1d5db; width:15%; text-align:right;">Rate (₹)</th>
+                  <th style="padding:8px 10px; border:1px solid #d1d5db; width:18%; text-align:right;">Total (₹)</th>
+              </tr>
+          </thead>
+          <tbody>
+              ${d.items.map(it => {
+                  const lines = it.desc.split('\n');
+                  const formattedDesc = lines.map((l, i) => i===0 ? `<b>${l}</b>` : `<span style="color:#64748b">${l}</span>`).join('<br>');
+                  return `
+                  <tr>
+                      <td style="padding:6px 10px; border:1px solid #e5e7eb; text-align:center; vertical-align:top;">${it.no}</td>
+                      <td style="padding:6px 10px; border:1px solid #e5e7eb; vertical-align:top; line-height:1.5;">${formattedDesc}</td>
+                      <td style="padding:6px 10px; border:1px solid #e5e7eb; text-align:right; vertical-align:top;">${it.rate.toLocaleString('en-IN', {maximumFractionDigits:0})}</td>
+                      <td style="padding:6px 10px; border:1px solid #e5e7eb; text-align:right; vertical-align:top;">${it.total.toLocaleString('en-IN', {maximumFractionDigits:0})}</td>
+                  </tr>`;
+              }).join('')}
+              <tr>
+                  <td colspan="2" style="border:1px solid #e5e7eb;"></td>
+                  <td style="padding:8px 10px; border:1px solid #e5e7eb; text-align:right;"><b>Total</b></td>
+                  <td style="padding:8px 10px; border:1px solid #e5e7eb; text-align:right;"><b>${d.sub.toLocaleString('en-IN', {maximumFractionDigits:0})}</b></td>
+              </tr>
+              <tr>
+                  <td colspan="2" style="border:1px solid #e5e7eb;"></td>
+                  <td style="padding:8px 10px; border:1px solid #e5e7eb; text-align:right;"><b>Less: Advance</b></td>
+                  <td style="padding:8px 10px; border:1px solid #e5e7eb; text-align:right;"><b>${d.adv.toLocaleString('en-IN', {maximumFractionDigits:0})}</b></td>
+              </tr>
+              <tr>
+                  <td colspan="2" style="border:1px solid #e5e7eb;"></td>
+                  <td style="padding:8px 10px; border:1px solid #e5e7eb; text-align:right;"><b>Net Balance</b></td>
+                  <td style="padding:8px 10px; border:1px solid #e5e7eb; text-align:right;"><b>${d.net.toLocaleString('en-IN', {maximumFractionDigits:0})}</b></td>
+              </tr>
+          </tbody>
+      </table>
+
+      <div style="background:#f1f5f9; padding:12px 14px; border-radius:6px; margin-top:20px; font-size:12.5px; color:#333; line-height:1.6;">
+          <b>Amount in Rupees (Total):</b> ${numToWords(d.sub)}<br>
+          <b>Net Balance Payable:</b> ${numToWords(d.net)}
+      </div>
+
+      <div style="display:flex; justify-content:space-between; margin-top:30px; font-size:11.5px; color:#333; line-height:1.6;">
+          <div>
+              ${d.showReq && d.reqLines.length > 0 ? `
+                  <b>Requirements & Notes:</b><br>
+                  ${d.reqLines.map(r => `<span style="color:#64748b">* ${r.val}</span>`).join('<br>')}
+              ` : ''}
+              
+              <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:6px; padding:12px; margin-top:${(d.showReq && d.reqLines.length > 0) ? '14px' : '0'}; width: max-content;">
+                  <b style="color:#1e293b;">Payment details:</b><br>
+                  <span style="color:#334155; font-weight: 500;">Bank A/c: ${d.coBank}<br>
+                  IFSC Code: ${d.coIfsc}<br>
+                  Phonepe: ${d.coPp}</span>
+              </div><br>
+              <i style="color:#64748b">Thank You.</i>
+          </div>
+          <div style="text-align:right; display:flex; flex-direction:column; justify-content:space-between;">
+              <div>
+                  <b>Certified that the particulars given above<br>are true and correct.</b>
+              </div>
+              <div style="margin-top:20px;">
+                  ${d.docType === 'INVOICE' ? `<div style="font-family: 'Brush Script MT', 'Segoe Script', cursive; font-size: 22px; color: #1e3a8a; margin-bottom: 2px;">${d.coSign}</div>` : ''}
+                  <b>For ${d.coName}</b>
+              </div>
+          </div>
+      </div>
     </div>`;
   document.getElementById('modal').classList.add('show');
 }
@@ -407,269 +449,229 @@ function genPDF() {
   const d = getData();
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({unit:'mm', format:'a4'});
-  const W=210, ml=14, mr=196, tw=mr-ml;
-  let y=0;
+  
+  // Outer Border
+  doc.setDrawColor(210, 210, 210);
+  doc.setLineWidth(0.4);
+  doc.rect(8, 8, 194, 281);
 
-  // Header background
-  doc.setFillColor(30,64,175);
-  doc.rect(0,0,210,42,'F');
-  doc.setTextColor(255,255,255);
-  doc.setFontSize(18); doc.setFont('helvetica','bold');
-  doc.text(d.coName, W/2, 13, {align:'center'});
-  doc.setFontSize(8); doc.setFont('helvetica','normal');
-  doc.text(d.coAddr, W/2, 20, {align:'center'});
-  doc.text(`Email: ${d.coEmail1} / ${d.coEmail2}`, W/2, 26, {align:'center'});
-  doc.text(`Phone: ${d.coPh1} / ${d.coPh2}   |   MSME: ${d.coMsme}`, W/2, 32, {align:'center'});
+  let y = 20;
 
-  // INVOICE banner
-  doc.setFillColor(255,255,255);
-  doc.rect(0,42,210,10,'F');
-  doc.setTextColor(30,64,175);
-  doc.setFontSize(13); doc.setFont('helvetica','bold');
-  doc.text(d.docType, W/2, 49, {align:'center'});
+  // Header Left
+  doc.setTextColor(30, 58, 138); 
+  doc.setFontSize(22);
+  doc.setFont('helvetica', 'bold');
+  doc.text(d.coName.toUpperCase(), 15, y);
 
-  y=58;
+  // Header Right
+  doc.setTextColor(37, 99, 235);
+  doc.text(d.docType, 195, y, {align: 'right'});
 
-  // Customer info box
-  doc.setDrawColor(226,232,240); doc.setLineWidth(0.3);
-  doc.rect(ml,y-5,tw,28);
-  doc.setTextColor(71,85,105); doc.setFontSize(10);
-  const col2 = ml + tw/2 + 4;
+  y += 7;
+  doc.setTextColor(100, 116, 139); 
+  doc.setFontSize(8.5);
+  doc.setFont('helvetica', 'normal');
+  doc.text(d.coAddr, 15, y); 
+  y += 4.5;
+  doc.text(`E-mail: ${d.coEmail1} | MSME No: ${d.coMsme}`, 15, y);
+  
+  // Date
+  doc.setTextColor(51, 51, 51);
+  doc.setFont('helvetica', 'bold');
+  doc.text('Date: ', 172, y, {align: 'right'});
+  doc.setFont('helvetica', 'normal');
+  doc.text(fmtDate(d.invDate), 173, y, {align: 'left'});
+  
+  y += 4.5;
+  doc.setTextColor(100, 116, 139);
+  doc.text(`Phone No: ${d.coPh1}`, 15, y);
 
-  function kv(label, val, x, yy) {
-    doc.setFont('helvetica','bold'); doc.setTextColor(71,85,105);
-    doc.setFontSize(10);
-    doc.text(label+':', x, yy);
-    doc.setFont('helvetica','normal'); doc.setTextColor(30,41,59);
-    doc.text(val||'—', x+26, yy);
-  }
+  y += 10;
 
-  kv('Name', d.custName, ml+3, y);
-  kv('Date', fmtDate(d.invDate)||'—', col2, y);
-  kv('Address', d.custAddr, ml+3, y+8);
-  kv('Contact', d.custPh, col2, y+8);
-  if (d.invNo) kv('Invoice No', d.invNo, ml+3, y+16);
+  // Customer Table Box
+  doc.setDrawColor(226, 232, 240);
+  doc.setLineWidth(0.3);
+  
+  doc.setFillColor(248, 250, 252);
+  doc.rect(15, y, 32, 8, 'F');
+  doc.rect(120, y, 25, 8, 'F');
+  doc.rect(15, y+8, 32, 8, 'F');
+  
+  doc.rect(15, y, 180, 16); 
+  doc.line(15, y+8, 195, y+8); 
+  doc.line(47, y, 47, y+16); 
+  doc.line(120, y, 120, y+8); 
+  doc.line(145, y, 145, y+8); 
 
-  y += 36;
+  doc.setFontSize(9.5);
+  doc.setTextColor(51, 51, 51);
+  doc.setFont('helvetica', 'bold');
+  doc.text('Name:', 20, y+5.5);
+  doc.text('Contact:', 125, y+5.5);
+  doc.text('Address:', 20, y+13.5);
 
-  // --- Proper table with fixed columns, borders, wrapping ---
-  // Column definitions: [label, x-start, width, align]
-  const colDefs = [
-    { label:'No.',        x: ml,       w: 12,  align:'center' },
-    { label:'Description',x: ml+12,    w: 88,  align:'left'   },
-    { label:'Rate (Rs.)', x: ml+100,   w: 28,  align:'right'  },
-    { label:'Qty',        x: ml+128,   w: 18,  align:'center' },
-    { label:'Total (Rs.)',x: ml+146,   w: 36,  align:'right'  },
-  ];
-  const rowH = 11;
-  const cellPad = 2.5;
+  doc.setFont('helvetica', 'normal');
+  doc.text(d.custName, 51, y+5.5);
+  doc.text(d.custPh, 149, y+5.5);
+  doc.text(d.custAddr, 51, y+13.5);
 
-  function drawTableBorders(rx, ry, rw, rh) {
-    doc.setDrawColor(200, 210, 230);
-    doc.setLineWidth(0.2);
-    doc.rect(rx, ry, rw, rh);
-  }
+  y += 24;
 
-  function drawCell(text, col, ry, rh, bold=false, bgColor=null) {
-    if (bgColor) { doc.setFillColor(...bgColor); doc.rect(col.x, ry, col.w, rh, 'F'); }
-    doc.setDrawColor(200,210,230); doc.setLineWidth(0.15);
-    doc.rect(col.x, ry, col.w, rh);
-    doc.setFont('helvetica', bold ? 'bold' : 'normal');
-    const maxW = col.w - cellPad*2;
-    const lines = doc.splitTextToSize(String(text), maxW);
-    const textY = ry + rh/2 + 1.5;
-    if (col.align === 'center') doc.text(lines[0], col.x + col.w/2, textY, {align:'center'});
-    else if (col.align === 'right') doc.text(lines[0], col.x + col.w - cellPad, textY, {align:'right'});
-    else doc.text(lines[0], col.x + cellPad, textY);
-  }
+  // Main Items Table Header
+  doc.setFillColor(37, 99, 235);
+  doc.rect(15, y, 180, 10, 'F'); 
+  doc.setTextColor(255, 255, 255);
+  doc.setFont('helvetica', 'bold');
+  
+  doc.text('Sl.\nNo.', 23, y+4, {align: 'center'});
+  doc.text('Description', 40, y+6.5);
+  doc.text('Rate (₹)', 142, y+6.5, {align: 'center'});
+  doc.text('Total (₹)', 178, y+6.5, {align: 'center'});
+  
+  y += 10;
 
-  // Header row
-  doc.setFillColor(30,64,175);
-  colDefs.forEach(col => {
-    doc.setFillColor(30,64,175);
-    doc.rect(col.x, y, col.w, rowH, 'F');
-    doc.setDrawColor(255,255,255); doc.setLineWidth(0.3);
-    doc.rect(col.x, y, col.w, rowH);
-    doc.setTextColor(255,255,255); doc.setFontSize(10); doc.setFont('helvetica','bold');
-    const textY = y + rowH/2 + 1.5;
-    if (col.align==='center') doc.text(col.label, col.x+col.w/2, textY, {align:'center'});
-    else if (col.align==='right') doc.text(col.label, col.x+col.w-cellPad, textY, {align:'right'});
-    else doc.text(col.label, col.x+cellPad, textY);
-  });
-  y += rowH;
-
-  // Data rows
+  // Main Items Data Rows
+  let currentY = y;
+  
   d.items.forEach((it, i) => {
-    if (y > 245) { doc.addPage(); y = 20; }
-    const bg = i%2===0 ? [255,255,255] : [248,250,252];
-    doc.setTextColor(30,41,59); doc.setFontSize(10);
+      let descLines = it.desc.split('\n');
+      let rowH = Math.max(8, descLines.length * 4.5 + 4);
+      
+      if(currentY + rowH > 240) { doc.addPage(); currentY = 15; }
 
-    // Calculate row height based on description wrapping
-    const descLines = doc.splitTextToSize(String(it.desc), colDefs[1].w - cellPad*2);
-    const rh = Math.max(rowH, descLines.length * 5 + 4);
+      doc.setDrawColor(226, 232, 240);
+      doc.rect(15, currentY, 16, rowH); 
+      doc.rect(31, currentY, 93, rowH); 
+      doc.rect(124, currentY, 36, rowH); 
+      doc.rect(160, currentY, 35, rowH); 
 
-    // Draw each cell
-    colDefs.forEach(col => {
-      doc.setFillColor(...bg);
-      doc.rect(col.x, y, col.w, rh, 'F');
-      doc.setDrawColor(200,210,230); doc.setLineWidth(0.15);
-      doc.rect(col.x, y, col.w, rh);
-    });
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(71, 85, 105);
+      doc.text(String(it.no), 23, currentY + 5.5, {align: 'center'});
+      
+      let textY = currentY + 5.5;
+      descLines.forEach((line, idx) => {
+          if(idx === 0) {
+              doc.setFont('helvetica', 'bold');
+              doc.setTextColor(51, 51, 51);
+          } else {
+              doc.setFont('helvetica', 'normal');
+              doc.setTextColor(100, 116, 139);
+          }
+          if(line.trim()) doc.text(line, 35, textY);
+          textY += 4.5;
+      });
 
-    doc.setFont('helvetica','normal');
-    const textY = y + rh/2 + 1.5;
-
-    // No.
-    doc.text(String(it.no), colDefs[0].x + colDefs[0].w/2, textY, {align:'center'});
-    // Description (multi-line)
-    doc.text(descLines, colDefs[1].x + cellPad, y + 5);
-    // Rate
-    doc.text(it.rate.toLocaleString('en-IN'), colDefs[2].x + colDefs[2].w - cellPad, textY, {align:'right'});
-    // Qty
-    doc.text(String(it.qty), colDefs[3].x + colDefs[3].w/2, textY, {align:'center'});
-    // Total
-    doc.text(it.total.toLocaleString('en-IN'), colDefs[4].x + colDefs[4].w - cellPad, textY, {align:'right'});
-
-    y += rh;
-  });
-  y += 2;
-
-  // Totals as table rows — spanning last 2 columns, label in merged left area
-  const totalRows = [
-    { label: 'Total',        sublabel: '', val: fmtINR(d.sub), bg:[245,248,255], labelColor:[30,41,59],   valColor:[30,41,59],   bold:false },
-    { label: 'Less Advance', sublabel: d.advDate ? 'Date: '+fmtDate(d.advDate) : '', val: '- '+fmtINR(d.adv), bg:[255,245,245], labelColor:[180,30,30], valColor:[180,30,30], bold:false },
-    { label: 'Net Payable',  sublabel: '', val: fmtINR(d.net), bg:[30,64,175],   labelColor:[255,255,255],valColor:[255,255,255],bold:true  },  ];
-
-  const labelColX = ml;
-  const labelColW = colDefs[0].w + colDefs[1].w + colDefs[2].w + colDefs[3].w; // spans cols 1-4
-  const valColX   = colDefs[4].x;
-  const valColW   = colDefs[4].w;
-  const tRowH     = 9;
-
-  totalRows.forEach(tr => {
-    if (y > 260) { doc.addPage(); y = 20; }
-    const rh = 11;
-    const midY = y + rh/2 + 1.8;
-
-    // Draw full-width background + border across both cells together
-    doc.setFillColor(...tr.bg);
-    doc.rect(labelColX, y, labelColW + valColW, rh, 'F');
-    doc.setDrawColor(200,210,230); doc.setLineWidth(0.2);
-    doc.rect(labelColX, y, labelColW + valColW, rh);
-
-    doc.setFontSize(10);
-
-    // Left side: sublabel (advance date) or empty
-    if (tr.sublabel) {
-      doc.setFont('helvetica','normal');
-      doc.setTextColor(...tr.labelColor);
-      doc.text(tr.sublabel, labelColX + cellPad, midY);
-    }
-
-    // Center-right: main label
-    doc.setFont('helvetica', tr.bold ? 'bold' : 'normal');
-    doc.setTextColor(...tr.labelColor);
-    doc.text(tr.label, labelColX + labelColW - cellPad, midY, {align:'right'});
-
-    // Right: value
-    doc.setFont('helvetica', tr.bold ? 'bold' : 'normal');
-    doc.setTextColor(...tr.valColor);
-    doc.text(tr.val, labelColX + labelColW + valColW - cellPad, midY, {align:'right'});
-
-    y += rh;
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(51, 51, 51);
+      doc.text(it.rate.toLocaleString('en-IN', {maximumFractionDigits:0}), 155, currentY + 5.5, {align: 'right'});
+      doc.text(it.total.toLocaleString('en-IN', {maximumFractionDigits:0}), 190, currentY + 5.5, {align: 'right'});
+      
+      currentY += rowH;
   });
 
-  y += 4;
+  // Totals Section
+  doc.setDrawColor(226, 232, 240);
+  const totals = [
+      {label: 'Total', val: d.sub},
+      {label: 'Less: Advance', val: d.adv},
+      {label: 'Net Balance', val: d.net}
+  ];
 
-  // Amount in words
-  doc.setFillColor(239,246,255);
-  doc.rect(ml, y-4, tw, 10, 'F');
-  doc.setTextColor(30,64,175); doc.setFontSize(8); doc.setFont('helvetica','bold');
-  doc.text('Amount in Rupees:', ml+3, y+1);
-  doc.setFont('helvetica','normal'); doc.setTextColor(30,41,59);
-  doc.text(numToWords(d.net), ml+38, y+1);
-  y += 14;
+  totals.forEach(t => {
+      doc.rect(15, currentY, 145, 8);
+      doc.rect(160, currentY, 35, 8);
+      doc.setFont('helvetica', 'bold');
+      doc.text(t.label, 155, currentY + 5.5, {align: 'right'});
+      doc.text(t.val.toLocaleString('en-IN', {maximumFractionDigits:0}), 190, currentY + 5.5, {align: 'right'});
+      currentY += 8;
+  });
 
-  // Certification & bank details
-  doc.setTextColor(71,85,105); doc.setFontSize(7.5); doc.setFont('helvetica','italic');
-  doc.text('Certified that the particulars given above are true and correct', ml, y);
-  y += 8;
+  currentY += 6;
 
-  // Requirements box
+  // Amount in Words Box
+  doc.setFillColor(241, 245, 249);
+  doc.rect(15, currentY, 180, 18, 'F');
+  doc.setFontSize(9.5);
+  doc.setFont('helvetica', 'bold');
+  doc.text('Amount in Rupees (Total):', 19, currentY + 7);
+  doc.setFont('helvetica', 'normal');
+  doc.text(numToWords(d.sub), 67, currentY + 7);
+  doc.setFont('helvetica', 'bold');
+  doc.text('Net Balance Payable:', 19, currentY + 13);
+  doc.setFont('helvetica', 'normal');
+  doc.text(numToWords(d.net), 58, currentY + 13);
+
+  currentY += 26;
+
+  // Bottom Footer
+  doc.setFontSize(9);
+  let contentY = currentY;
+  
+  // Left Side (Conditionally render Requirements)
   if (d.showReq && d.reqLines.length > 0) {
-    const reqHeaderH = 9;
-    const lineH = 7;
-    const reqContentH = d.reqLines.length * lineH + 10;
-    const reqTotalH = reqHeaderH + reqContentH;
-    if (y + reqTotalH > 275) { doc.addPage(); y = 16; }
-
-    // Light yellow-green background
-    doc.setFillColor(240, 249, 235);
-    doc.rect(ml, y, tw, reqTotalH, 'F');
-    // Header bar
-    doc.setFillColor(22, 101, 52);
-    doc.rect(ml, y, tw, reqHeaderH, 'F');
-    doc.setTextColor(255,255,255);
-    doc.setFontSize(10); doc.setFont('helvetica','bold');
-    doc.text('REQUIREMENTS', ml + tw/2, y + 6.2, {align:'center'});
-    // Border
-    doc.setDrawColor(22,101,52); doc.setLineWidth(0.4);
-    doc.rect(ml, y, tw, reqTotalH);
-    y += reqHeaderH + 7;
-
-    doc.setFont('helvetica','normal'); doc.setTextColor(30,41,59); doc.setFontSize(10);
-    d.reqLines.forEach(r => {
-      if (y > 270) { doc.addPage(); y = 16; }
-      doc.text(`*  ${r.val}`, ml + 6, y);
-      y += lineH;
-    });
-    y += 6;
-  }
-
-  if (d.showPayment) {
-    // Payment Details Box
-    const boxX = ml, boxW = tw, boxHeaderH = 9, boxContentH = 30;
-    doc.setFillColor(219,234,254);
-    doc.rect(boxX, y, boxW, boxHeaderH + boxContentH, 'F');
-    doc.setFillColor(30,64,175);
-    doc.rect(boxX, y, boxW, boxHeaderH, 'F');
-    doc.setTextColor(255,255,255);
-    doc.setFontSize(10); doc.setFont('helvetica','bold');
-    doc.text('PAYMENT DETAILS', boxX + boxW/2, y + 6.2, {align:'center'});
-    doc.setDrawColor(30,64,175); doc.setLineWidth(0.4);
-    doc.rect(boxX, y, boxW, boxHeaderH + boxContentH);
-    y += boxHeaderH + 8;
-    doc.setFont('helvetica','bold'); doc.setTextColor(30,41,59); doc.setFontSize(10);
-    doc.text(`Bank A/c  :  ${d.coBank}`, boxX + 6, y); y += 8;
-    doc.text(`IFSC Code :  ${d.coIfsc}`, boxX + 6, y); y += 8;
-    doc.text(`PhonePay  :  ${d.coPp}`, boxX + 6, y); y += 14;
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(51, 51, 51);
+      doc.text('Requirements & Notes:', 15, contentY);
+      
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(100, 116, 139);
+      contentY += 5;
+      d.reqLines.forEach(r => {
+          doc.text(`* ${r.val}`, 15, contentY);
+          contentY += 5;
+      });
+      contentY += 2; // small gap before payment box
   } else {
-    y += 8;
+      contentY += 2; // gap if no reqs
   }
 
-  // Signature box
-  doc.setDrawColor(226,232,240);
-  doc.rect(mr-60, y-6, 60, 12);
-  doc.setTextColor(30,64,175); doc.setFontSize(10); doc.setFont('helvetica','bold');
-  doc.text(`For ${d.coName}`, mr-30, y, {align:'center'});
+  // Payment Details Light Blue Box
+  doc.setFillColor(239, 246, 255); 
+  doc.setDrawColor(191, 219, 254);  
+  doc.roundedRect(15, contentY, 80, 23, 2, 2, 'FD');
 
-  // Footer
-  const pages = doc.internal.getNumberOfPages();
-  for (let i=1;i<=pages;i++) {
-    doc.setPage(i);
-    doc.setFillColor(248,250,252);
-    doc.rect(0,284,210,13,'F');
-    doc.setDrawColor(226,232,240); doc.line(0,284,210,284);
-    doc.setTextColor(148,163,184); doc.setFontSize(7); doc.setFont('helvetica','normal');
-    doc.text(`Page ${i} of ${pages}`, W/2, 291, {align:'center'});
-    doc.text('Confidential', ml, 291);
-    doc.text(d.coName, mr, 291, {align:'right'});
+  contentY += 5;
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(30, 41, 59); 
+  doc.text('Payment details:', 18, contentY);
+  
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(51, 65, 85); 
+  contentY += 5;
+  doc.text(`Bank A/c: ${d.coBank}`, 18, contentY); contentY += 4.5;
+  doc.text(`IFSC Code: ${d.coIfsc}`, 18, contentY); contentY += 4.5;
+  doc.text(`Phonepe: ${d.coPp}`, 18, contentY); contentY += 8;
+  
+  doc.setFont('helvetica', 'italic');
+  doc.setTextColor(100, 116, 139);
+  doc.text('Thank You.', 15, contentY);
+
+  // Right Side (Signatures)
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(51, 51, 51);
+  doc.setFontSize(9);
+  doc.text('Certified that the particulars given above', 195, currentY, {align: 'right'});
+  doc.text('are true and correct.', 195, currentY + 4.5, {align: 'right'});
+  
+  // Conditionally render Digital Signature
+  if (d.docType === 'INVOICE') {
+      doc.setFont('times', 'italic');
+      doc.setFontSize(16);
+      doc.setTextColor(30, 58, 138);
+      doc.text(d.coSign, 195, contentY + 14, {align: 'right'});
   }
+  
+  // For Company
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(9);
+  doc.setTextColor(51, 51, 51);
+  doc.text(`For ${d.coName}`, 195, contentY + 20, {align: 'right'});
 
-  const docLabel = d.docType.charAt(0) + d.docType.slice(1).toLowerCase();
-  const fname = `${docLabel}_${(d.custName||'Customer').replace(/\s+/g,'_')}_${fmtDate(d.invDate)||'draft'}.pdf`;
+  const fname = `${d.docType}_${(d.custName||'Customer').replace(/\s+/g,'_')}.pdf`;
   doc.save(fname);
   document.getElementById('modal').classList.remove('show');
+  
   const t = document.getElementById('toast');
   t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),3000);
@@ -679,15 +681,16 @@ function clearAll() {
   if (!confirm('Clear all data?')) return;
   rows = [];
   renderRows();
-  ['inv_no','cust_name','cust_ph','cust_addr','inv_date'].forEach(id => document.getElementById(id).value='');
+  ['cust_name','cust_ph','cust_addr','inv_date'].forEach(id => document.getElementById(id).value='');
   document.getElementById('advance').value='0';
 }
 
-// Preload from the uploaded invoice
 window.onload = () => {
-  document.getElementById('inv_date').value = '2023-06-06';
-  addRow('RCC Boundary (Total Area 315 Height 7 ft)', '700', '315');
-  addRow('Cement', '340', '1');
+  // Sync the UI toggle state with the starting dropdown option right on load
+  onDocTypeChange(document.getElementById('doc_type').value);
+
+  document.getElementById('inv_date').value = '2026-07-22';
+  addRow('RCC Precast Boundary Wall\nArea: 249 ft | Height: 6 ft\nTotal Area: 1,494 sq. ft.', '105', '1494');
   addReqLine('Extra charges applicable for any changes in area & height.');
   addReqLine('Water availability to be provided by the customer.');
 };

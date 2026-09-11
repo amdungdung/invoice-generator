@@ -423,12 +423,14 @@ function showPreview() {
                   ${d.reqLines.map(r => `<span style="color:#64748b">* ${r.val}</span>`).join('<br>')}
               ` : ''}
               
-              <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:6px; padding:12px; margin-top:${(d.showReq && d.reqLines.length > 0) ? '14px' : '0'}; width: max-content;">
-                  <b style="color:#1e293b;">Payment details:</b><br>
-                  <span style="color:#334155; font-weight: 500;">Bank A/c: ${d.coBank}<br>
-                  IFSC Code: ${d.coIfsc}<br>
-                  Phonepe: ${d.coPp}</span>
-              </div><br>
+              ${d.docType === 'INVOICE' ? `
+                  <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:6px; padding:12px; margin-top:${(d.showReq && d.reqLines.length > 0) ? '14px' : '0'}; width: max-content;">
+                      <b style="color:#1e293b;">Payment Details:</b><br>
+                      <span style="color:#334155; font-weight: 500;">Bank A/c: ${d.coBank}<br>
+                      IFSC Code: ${d.coIfsc}<br>
+                      Phonepe: ${d.coPp}</span>
+                  </div><br>
+              ` : '<br>'}
               <i style="color:#64748b">Thank You.</i>
           </div>
           <div style="text-align:right; display:flex; flex-direction:column; justify-content:space-between;">
@@ -626,22 +628,26 @@ function genPDF() {
       contentY += 2; // gap if no reqs
   }
 
-  // Payment Details Light Blue Box
-  doc.setFillColor(239, 246, 255); 
-  doc.setDrawColor(191, 219, 254);  
-  doc.roundedRect(15, contentY, 80, 23, 2, 2, 'FD');
+  // Conditionally render Payment Details if document type is INVOICE
+  if (d.docType === 'INVOICE') {
+      doc.setFillColor(239, 246, 255); 
+      doc.setDrawColor(191, 219, 254);  
+      doc.roundedRect(15, contentY, 80, 23, 2, 2, 'FD');
 
-  contentY += 5;
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(30, 41, 59); 
-  doc.text('Payment details:', 18, contentY);
-  
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(51, 65, 85); 
-  contentY += 5;
-  doc.text(`Bank A/c: ${d.coBank}`, 18, contentY); contentY += 4.5;
-  doc.text(`IFSC Code: ${d.coIfsc}`, 18, contentY); contentY += 4.5;
-  doc.text(`Phonepe: ${d.coPp}`, 18, contentY); contentY += 8;
+      contentY += 5;
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(30, 41, 59); 
+      doc.text('Payment Details:', 18, contentY);
+      
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(51, 65, 85); 
+      contentY += 5;
+      doc.text(`Bank A/c: ${d.coBank}`, 18, contentY); contentY += 4.5;
+      doc.text(`IFSC Code: ${d.coIfsc}`, 18, contentY); contentY += 4.5;
+      doc.text(`Phonepe: ${d.coPp}`, 18, contentY); contentY += 8;
+  } else {
+      contentY += 27; // Keeps consistent spacing so the signatures align perfectly on Estimate PDFs
+  }
   
   doc.setFont('helvetica', 'italic');
   doc.setTextColor(100, 116, 139);
